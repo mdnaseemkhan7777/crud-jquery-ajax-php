@@ -1,21 +1,8 @@
-<?php 
+<?php
 
 $con = mysqli_connect('localhost','root','','crudajax');
 
 extract($_POST);
-
-// insert data
-if(isset($_POST['fname']) && isset($_POST['lname']) && isset($_POST['age']) && isset($_POST['desig']))
-{
-    $query = "insert into employee (fname,lname,age,desig) values('$fname','$lname','$age','$desig')";
-    
-    mysqli_query($con,$query);
-}
-
-
-
-
-
 
 // retrieve data in tabular format
 // READ DATA
@@ -63,6 +50,13 @@ if(isset($_POST['rd']))
 
 
 
+// insert data
+if(isset($_POST['fname']) && isset($_POST['lname']) && isset($_POST['age']) && isset($_POST['desig']))
+{
+    $query = "insert into employee (fname,lname,age,desig) values('$fname','$lname','$age','$desig')";
+    
+    mysqli_query($con,$query);
+}
 
 
 // DELETE RECORDS
@@ -74,9 +68,6 @@ if(isset($_POST['UserId']))
     $query = "delete from employee where id = '$id'";
     mysqli_query($con,$query);
 }
-
-
-
 
 // FETCH DATA CODE
 
@@ -114,6 +105,21 @@ else
     $response['message']="Invalid Request";
 }
 
+// UPDATE DATA CODE..
+
+// update data code
+if(isset($_POST['update_hidden_id']))
+{
+    $update_Userid = $_POST['update_hidden_id'];
+    $update_fname = $_POST['update_fname'];
+    $update_lname = $_POST['update_lname'];
+    $update_age = $_POST['update_age'];
+    $update_desig = $_POST['update_desig'];
+    
+    $query = "update employee set fname = '$update_fname', lname = '$update_lname',age = '$update_age', desig = '$update_desig' where id = '$update_Userid'";
+    
+    mysqli_query($con,$query);
+}
 
 
 ?>
